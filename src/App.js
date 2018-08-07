@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import MyFeature from "./MyFeature";
+import UserListContainer from "./UserListContainer";
 
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
 
     render() {
         return (
-            <MyFeature />
+            <UserListContainer />
         );
     }
 
