@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
-// Utility for constructing unique IDs...
 import cuid from 'cuid';
-
-// For building immutable component states...
 import { fromJS } from 'immutable';
+
+// The list of articles is now rendered by a
+// separate component...
+import ArticleList from './ArticleList';
+import AddArticle from './AddArticle';
 
 export default class MyFeature extends Component {
   // The state of this component is consists of
@@ -145,46 +146,26 @@ export default class MyFeature extends Component {
 
     return (
       <section>
-        <header>
-          <h1>Articles</h1>
-          <input
-            placeholder="Title"
-            value={title}
-            onChange={this.onChangeTitle}
-          />
-          <input
-            placeholder="Summary"
-            value={summary}
-            onChange={this.onChangeSummary}
-          />
-          <button onClick={this.onClickAdd}>Add</button>
-        </header>
-        <article>
-          <ul>
-            {articles.map(i => (
-              <li key={i.id}>
-                <a
-                  href="#"
-                  title="Toggle Summary"
-                  onClick={this.onClickToggle.bind(null, i.id)}
-                >
-                  {i.title}
-                </a>
-                &nbsp;
-                <a
-                  href="#"
-                  title="Remove"
-                  onClick={this.onClickRemove.bind(null, i.id)}
-                >
-                  &#10007;
-                </a>
-                <p style={{ display: i.display }}>
-                  {i.summary}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </article>
+        { /* Now the add article form is rendered by the
+             "AddArticle" component. This component can
+             now be used in several other components. */ }
+        <AddArticle
+          name="Articles"
+          title={title}
+          summary={summary}
+          onChangeTitle={this.onChangeTitle}
+          onChangeSummary={this.onChangeSummary}
+          onClickAdd={this.onClickAdd}
+        />
+
+        { /* Now the list of articles is rendered by the
+             "ArticleList" component. This component can
+             now be used in several other components. */ }
+        <ArticleList
+          articles={articles}
+          onClickToggle={this.onClickToggle}
+          onClickRemove={this.onClickRemove}
+        />
       </section>
     );
   }

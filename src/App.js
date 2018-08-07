@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import MyButton from "./MyButton";
+import MyFeature from "./MyFeature";
 
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
 
     render() {
         return (
-            <MyButton>Click Me</MyButton>
+            <MyFeature />
         );
     }
 
