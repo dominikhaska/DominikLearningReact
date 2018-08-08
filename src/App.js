@@ -2,16 +2,31 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {render as renderJSX} from 'react-dom';
+
+
 import MyFeature from "./MyFeature";
 import UserListContainer from "./UserListContainer";
+import MyList from "./MyList";
+
+
 
 
 class App extends Component {
 
 
     render() {
+        {/*<MyList/>*/}
         return (
-            <UserListContainer />
+            <div>
+            </div>
+
+        );
+    }
+
+    render3() {
+        return (
+            <UserListContainer/>
         );
     }
 
