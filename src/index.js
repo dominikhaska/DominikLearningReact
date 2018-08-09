@@ -1,40 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import { render as renderJSX } from 'react-dom';
-import MyList from './MyList';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import './index.css';
+// import App from './App';
+// import registerServiceWorker from './registerServiceWorker';
+// import { render as renderJSX } from 'react-dom';
+// import MyList from './MyList';
 
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 // registerServiceWorker();
 
+import React from 'react';
+import { render } from 'react-dom';
 
-// Renders the "<MyList>" component. Then, it sets
-// the state of the component by changing the value
-// of the first "items" element. However, the value
-// didn't actually change, so the same Immutable.js
-// structure is reused. This means that
-// "shouldComponentUpdate()" will return false.
-function render() {
-    const myList = renderJSX(
-        (<MyList />),
-        document.getElementById('root')
-    );
+import MyButtonContainer from './MyButtonContainer';
 
-    // Not actually changing the value of the first
-    // "items" element. So, Immutable.js recognizes
-    // that nothing changed, and instead of
-    // returning a new object, it returns the same
-    // "myList.data" reference.
-    myList.data = myList.data
-        .setIn(['items', 0], 0);
+// Simple button event handler that changes the
+// "disabled" state when clicked.
+function onClick() {
+    this.data = this.data
+        .set('disabled', true);
 }
 
-// Instead of performing 500,000 DOM operations,
-// "shouldComponentUpdate()" turns this into
-// 5000 DOM operations.
-for (let i = 0; i < 100; i++) {
-    render();
-}
+render((
+        <section>
+            { /* A simple button with a simple label. */ }
+            <MyButtonContainer label="Text" />
+
+            { /* A button with an icon, and a hidden label. */ }
+            <MyButtonContainer
+                label="My Button"
+                icon="ui-icon-person"
+                showLabel={false}
+            />
+
+            { /* A button with a click event handler. */ }
+            <MyButtonContainer
+                label="Disable Me"
+                onClick={onClick}
+            />
+        </section>
+    ),
+    document.getElementById('root')
+);
+

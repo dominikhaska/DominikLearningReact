@@ -8,7 +8,9 @@
     "react-scripts": "1.1.4",
     "babel-loader": "^7.1.5",
     "cuid": "^2.1.1",
-    "immutable": "^3.8.2"
+    "immutable": "^3.8.2",
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1"
   },
   "scripts": {
     "start": "react-scripts start",

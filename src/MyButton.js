@@ -1,36 +1,36 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-// Mock function, meant to simulate fetching
-// data asynchronously from an API.
-function fetchData() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
-
-}
+// Import all the jQuery UI widget stuff...
+import $ from 'jquery';
+import 'jquery-ui/ui/widgets/button';
+import 'jquery-ui/themes/base/all.css';
 
 export default class MyButton extends Component {
-  onClick(e) {
-    // This works fine, we can access the DOM element
-    // through the "currentTarget" property.
-    console.log('clicked', e.currentTarget.style);
-
-    fetchData().then(() => {
-      // However, trying to access "currentTarget"
-      // asynchronously fails, because it's properties
-      // have all been nullified so that the instance
-      // can be reused.
-      console.log('callback', e.currentTarget.style);
-    });
+  // When the component is mounted, we need to
+  // call "button()" to initialize the widget.
+  componentDidMount() {
+    $(this.button).button(this.props);
   }
 
+  // After the component updates, we need to use
+  // "this.props" to update the options of the
+  // jQuery UI button widget.
+  componentDidUpdate() {
+    $(this.button).button('option', this.props);
+  }
+
+  // Renders the "<button>" HTML element. The "onClick()"
+  // handler will always be a assigned, even if it's a
+  // noop function. The "ref" property is used to assign
+  // "this.button". This is the DOM element itself, and
+  // it's needed by the "componentDidMount()" and
+  // "componentDidUpdate()" methods.
   render() {
     return (
-      <button onClick={this.onClick}>
-        {this.props.children}
-      </button>
+      <button
+        onClick={this.props.onClick}
+        ref={(button) => { this.button = button; }}
+      />
     );
   }
 }
