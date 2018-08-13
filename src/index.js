@@ -13,34 +13,36 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import MyButtonContainer from './MyButtonContainer';
+import MyComponent from './MyComponent';
+import MyUser from './MyUser';
 
-// Simple button event handler that changes the
-// "disabled" state when clicked.
-function onClick() {
-    this.data = this.data
-        .set('disabled', true);
-}
+
+// The "myUsers" property is expecting
+// an array of "MyUser" instances.
+const users = [
+    new MyUser('First1', 'Last1'),
+    new MyUser('First2', 'Last2'),
+    new MyUser('First3', 'Last3'),
+];
 
 render((
         <section>
-            { /* A simple button with a simple label. */ }
-            <MyButtonContainer label="Text" />
-
-            { /* A button with an icon, and a hidden label. */ }
-            <MyButtonContainer
-                label="My Button"
-                icon="ui-icon-person"
-                showLabel={false}
+            { /* Works as expected. */ }
+            <MyComponent
+                myDate={new Date()}
+                myCount={0}
+                myUsers={users}
             />
 
-            { /* A button with a click event handler. */ }
-            <MyButtonContainer
-                label="Disable Me"
-                onClick={onClick}
+            { /* All property values fail to validate. */ }
+            <MyComponent
+                myDate="6/9/2016"
+                myCount={false}
+                myUsers={[1, 2, 3]}
             />
         </section>
     ),
     document.getElementById('root')
 );
+
 
