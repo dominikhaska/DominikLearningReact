@@ -1,48 +1,43 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
-// import { render as renderJSX } from 'react-dom';
-// import MyList from './MyList';
-
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
-
 import React from 'react';
 import { render } from 'react-dom';
 
 import MyComponent from './MyComponent';
-import MyUser from './MyUser';
 
-
-// The "myUsers" property is expecting
-// an array of "MyUser" instances.
-const users = [
-    new MyUser('First1', 'Last1'),
-    new MyUser('First2', 'Last2'),
-    new MyUser('First3', 'Last3'),
-];
+// Two React elements we'll use to pass to
+// "<MyComponent>" as property values.
+const myHeader = (<h1>My Header</h1>);
+const myContent = (<p>My Content</p>);
 
 render((
         <section>
-            { /* Works as expected. */ }
+            { /* Renders as expected, both properties are passed
+         React elements as values. */ }
             <MyComponent
-                myDate={new Date()}
-                myCount={0}
-                myUsers={users}
+                {...{ myHeader }}
+                {...{ myContent }}
             />
 
-            { /* All property values fail to validate. */ }
+            { /* Triggers a warning because "myHeader" is expecting
+         a React element instead of a string. */ }
             <MyComponent
-                myDate="6/9/2016"
-                myCount={false}
-                myUsers={[1, 2, 3]}
+                myHeader="My Header"
+                {...{ myContent }}
+            />
+
+            { /* Renders as expected. A string is a valid type for
+         the "myContent" property. */ }
+            <MyComponent
+                {...{ myHeader }}
+                myContent="My Content"
+            />
+
+            { /* Renders as expected. An array of React elements
+         is a valid type for the "myContent" property. */ }
+            <MyComponent
+                {...{ myHeader }}
+                myContent={[myContent, myContent, myContent]}
             />
         </section>
     ),
     document.getElementById('root')
 );
-
-
