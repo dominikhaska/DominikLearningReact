@@ -1,23 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import MyUser from './MyUser';
+
+
+// Any one of these is a valid "level"
+// property value.
+const levels = new Array(10)
+    .fill(null)
+    .map((v, i) => i + 1);
+
+// This is the "shape" of the object we expect
+// to find in the "user" property value.
+const userShape = {
+    name: PropTypes.string,
+    age: PropTypes.number,
+};
 
 const MyComponent = ({
-                         myHeader,
-                         myContent,
+                         level,
+                         user,
                      }) => (
     <section>
-        <header>{myHeader}</header>
-        <main>{myContent}</main>
+        <p>{level}</p>
+        <p>{user.name}</p>
+        <p>{user.age}</p>
     </section>
 );
 
-// The "myHeader" property requires a React
-// element. The "myContent" property requires
-// a node that can be rendered. This includes
-// React elements, but also strings.
+// The property spec for this component uses
+// "oneOf()" and "shape()" to define the required
+// property vlues.
 MyComponent.propTypes = {
-    myHeader: PropTypes.element.isRequired,
-    myContent: PropTypes.node.isRequired,
+    level: PropTypes.oneOf(levels),
+    user: PropTypes.shape(userShape),
 };
 
 export default MyComponent;
