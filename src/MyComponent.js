@@ -1,40 +1,46 @@
 import React from 'react';
+import { Map as ImmutableMap } from 'immutable';
+
 import BaseComponent from './BaseComponent';
 
-// Extends "BaseComponent" to inherit the
-// initial component state.
+// Renders the given "text" as a header, unless
+// the given "length" is 0.
+const SectionHeader = ({ text, length }) =>
+  ImmutableMap()
+    .set(0, null)
+    .get(length, (<h1>{text}</h1>));
+
 export default class MyComponent extends BaseComponent {
-
-  // This is our chance to build on the initial state.
-  // We change the "placeholder" text and mark it as
-  // "enabled".
-  componentWillMount() {
-    this.data = this.data
-      .merge({
-        placeholder: 'Enter a name...',
-        enabled: true,
-      });
-  }
-
-  // Renders a simple input element, that uses the
-  // state of this component as properties.
   render() {
-    const {
-      enabled,
-      name,
-      placeholder,
-    } = this.data.toJS();
+    console.log('props', this.props);
+    const { users, groups } = this.props;
 
+    // Renders the "users" and "groups" arrays. There
+    // are not property validators or default values
+    // in this component, since these are declared in
+    // "BaseComponent".
     return (
-      <label htmlFor="my-input">
-        Name:
-        <input
-          id="my-input"
-          disabled={!enabled}
-          defaultValue={name}
-          placeholder={placeholder}
+      <section>
+        <SectionHeader
+          text="Users"
+          length={users.length}
         />
-      </label>
+        <ul>
+          {users.map(i => (
+            <li key={i}>{i}</li>
+          ))}
+        </ul>
+
+        <SectionHeader
+          text="Groups"
+          length={groups.length}
+        />
+        <ul>
+          {groups.map(i => (
+            <li key={i}>{i}</li>
+          ))}
+        </ul>
+      </section>
     );
   }
 }

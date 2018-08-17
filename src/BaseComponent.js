@@ -1,27 +1,20 @@
-import React, { Component } from 'react';
-import { fromJS } from 'immutable';
+import { Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class BaseComponent extends Component {
-  state = {
-    data: fromJS({
-      name: 'Mark',
-      enabled: false,
-      placeholder: '',
-    }),
+
+  // The specifiction for these base properties.
+  static propTypes = {
+    users: PropTypes.array.isRequired,
+    groups: PropTypes.array.isRequired,
   };
 
-  // Getter for "Immutable.js" state data...
-  get data() {
-    return this.state.data;
-  }
+  // The default values of these base properties.
+  static defaultProps = {
+    users: [],
+    groups: [],
+  };
 
-  // Setter for "Immutable.js" state data...
-  set data(data) {
-    this.setState({ data });
-  }
-
-  // The base component doesn't actually render anything,
-  // but it still needs a render method.
   render() {
     return null;
   }
