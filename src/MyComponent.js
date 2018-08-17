@@ -1,46 +1,19 @@
 import React from 'react';
-import { Map as ImmutableMap } from 'immutable';
-
+import { fromJS } from 'immutable';
 import BaseComponent from './BaseComponent';
 
-// Renders the given "text" as a header, unless
-// the given "length" is 0.
-const SectionHeader = ({ text, length }) =>
-  ImmutableMap()
-    .set(0, null)
-    .get(length, (<h1>{text}</h1>));
-
 export default class MyComponent extends BaseComponent {
-  render() {
-    console.log('props', this.props);
-    const { users, groups } = this.props;
 
-    // Renders the "users" and "groups" arrays. There
-    // are not property validators or default values
-    // in this component, since these are declared in
-    // "BaseComponent".
-    return (
-      <section>
-        <SectionHeader
-          text="Users"
-          length={users.length}
-        />
-        <ul>
-          {users.map(i => (
-            <li key={i}>{i}</li>
-          ))}
-        </ul>
-
-        <SectionHeader
-          text="Groups"
-          length={groups.length}
-        />
-        <ul>
-          {groups.map(i => (
-            <li key={i}>{i}</li>
-          ))}
-        </ul>
-      </section>
-    );
+  // Initializes the component state, by using the
+  // "data" getter method from "BaseComponent".
+  componentWillMount() {
+    this.data = this.data
+      .merge({
+        items: [
+          { id: 1, name: 'One', done: false },
+          { id: 2, name: 'Two', done: false },
+          { id: 3, name: 'Thra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaeeThra          aaaaee', done: false },
+        ],
+      });
   }
 }
